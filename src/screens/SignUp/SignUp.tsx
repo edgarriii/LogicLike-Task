@@ -51,7 +51,7 @@ export const SignUp = () => {
 		try {
 			const response = await fetch(`${BACKEND_URL}/user/common-profile.json`, {
 				method: 'GET',
-				headers: { Authorization: `Bearer ${token}` }
+				headers: { Authorization: `Bearer ${token}`, Cookie: '' }
 			});
 			const data: GetUserResponse = await response.json();
 			const { commonProfile } = data;
@@ -64,37 +64,39 @@ export const SignUp = () => {
 			} else {
 				setError('Sorry, something went wrong...');
 			}
+
 			setIsLoading(false);
 		} catch (err) {
 			setIsLoading(false);
-
 			setError(JSON.stringify(err));
 		}
 	};
 
+	if (isLoading) {
+		return (
+			<View style={styles.loader}>
+				<ActivityIndicator size="large" color={colors.lightGreen} />
+			</View>
+		);
+	}
+
 	return (
 		<SafeAreaView style={styles.safeAreaView}>
-			{isLoading ? (
-				<View style={styles.loader}>
-					<ActivityIndicator size="large" color={colors.lightGreen} />
+			<View style={styles.mainContainer}>
+				<Header />
+
+				<Text style={styles.description}>Курс развития интеллекта Логиклайк</Text>
+
+				<View style={styles.tagsContainer}>
+					{tags.map(({ title, color }, index) => (
+						<Tag key={`${title}${index}`} title={title} style={{ backgroundColor: color }} />
+					))}
 				</View>
-			) : (
-				<View style={styles.mainContainer}>
-					<Header />
 
-					<Text style={styles.description}>Курс развития интеллекта Логиклайк</Text>
+				{error && <Text style={styles.error}>{error}</Text>}
 
-					<View style={styles.tagsContainer}>
-						{tags.map(({ title, color }, index) => (
-							<Tag key={`${title}${index}`} title={title} style={{ backgroundColor: color }} />
-						))}
-					</View>
-
-					{error && <Text style={styles.error}>{error}</Text>}
-
-					<Button title="Зарегистрироваться" onPress={handleSignupPress} />
-				</View>
-			)}
+				<Button title="Зарегистрироваться" onPress={handleSignupPress} />
+			</View>
 		</SafeAreaView>
 	);
 };
