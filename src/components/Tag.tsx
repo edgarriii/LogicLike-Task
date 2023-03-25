@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { memo } from 'react';
 
-import { StyleSheet, Text, TextProps, View, ViewProps } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { StyleSheet, Text, TextProps, View, ViewProps } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { DEFAULT_SCREEN_SIZES } from '@constants/screens';
+
 import { colors } from '@constants/colors';
+import { DEFAULT_SCREEN_SIZES } from '@constants/screens';
 
 interface TagProps extends ViewProps {
 	title: string;
 	titleProps?: TextProps;
 }
 
-export const Tag = ({ title, style, titleProps }: TagProps) => (
+export const Tag = memo(({ title, style, titleProps }: TagProps) => (
 	<View style={[styles.wrapper, style]}>
 		<Text style={styles.title} {...titleProps}>
 			{title}
 		</Text>
 	</View>
-);
+));
 
 const styles = StyleSheet.create({
 	wrapper: {

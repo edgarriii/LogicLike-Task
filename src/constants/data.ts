@@ -18,3 +18,11 @@ export const tags = [
 		color: colors.blue
 	}
 ];
+
+// Usually I store this in .env
+export const BACKEND_URL = 'https://staging.logiclike.com';
+
+export enum AsyncStorageKeys {
+	refreshToken = 'refresh_token',
+	user = 'user_profile'
+}

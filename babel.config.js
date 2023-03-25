@@ -11,7 +11,8 @@ module.exports = {
 					'@constants': './src/constants',
 					'@interfaces': './src/interfaces',
 					'@navigation': './src/navigation',
-					'@screens': './src/screens'
+					'@screens': './src/screens',
+					'@redux': './src/redux'
 				}
 			}
 		],
