@@ -30,7 +30,8 @@ export const SignUp = () => {
 			const response = await fetch(`${BACKEND_URL}/user/registration`, {
 				method: 'POST',
 				body: JSON.stringify({ needToken: true, type: 20 }),
-				headers: { 'Content-Type': 'application/json', Cookie: '' }
+				headers: { 'Content-Type': 'application/json', Cookie: '' },
+				credentials: 'omit'
 			});
 			const data: SignUpResponse = await response.json();
 
@@ -51,7 +52,8 @@ export const SignUp = () => {
 		try {
 			const response = await fetch(`${BACKEND_URL}/user/common-profile.json`, {
 				method: 'GET',
-				headers: { Authorization: `Bearer ${token}`, Cookie: '' }
+				credentials: 'include',
+				headers: { Authorization: `Bearer ${token}` }
 			});
 			const data: GetUserResponse = await response.json();
 			const { commonProfile } = data;
